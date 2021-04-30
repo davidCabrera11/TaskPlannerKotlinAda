@@ -36,6 +36,13 @@ class UserServiceHashMap:UserService {
 
     }
 
+    override fun findByEmail(email: String): User? {
+        return if (users.containsKey(email))
+            users[email]
+        else
+            null
+    }
+
     override fun all(): List<User> {
         return users.values.toList()
 
