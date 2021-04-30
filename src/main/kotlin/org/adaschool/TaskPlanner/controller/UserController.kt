@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 import java.lang.Exception
 
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/users")
 class UserController(@Autowired val userService: UserService) {
 
     //CRUD Operations
