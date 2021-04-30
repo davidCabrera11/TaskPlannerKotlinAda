@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import java.lang.Exception
 
 @RestController
-@RequestMapping("v1/tasks")
+@RequestMapping("/v1/tasks")
 class TaskController(@Autowired val taskService: TaskService){
 
     //CRUD Operations
