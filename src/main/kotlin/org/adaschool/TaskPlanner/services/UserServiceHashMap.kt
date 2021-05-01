@@ -14,8 +14,7 @@ class UserServiceHashMap:UserService {
     private val nextOid = AtomicLong()
 
     init {
-
-
+        createSampleUser()
     }
 
     private fun createSampleUser(){
@@ -33,7 +32,6 @@ class UserServiceHashMap:UserService {
         users[id] = user
 
     }
-
 
 
     override fun save(userDto: UserDto): User {
@@ -61,10 +59,7 @@ class UserServiceHashMap:UserService {
     }
 
     override fun findByEmail(email: String): User? {
-        return if (users.containsKey(email))
-            users[email]
-        else
-            null
+        return users.values.find { email == it.email }
     }
 
     override fun all(): List<User> {
