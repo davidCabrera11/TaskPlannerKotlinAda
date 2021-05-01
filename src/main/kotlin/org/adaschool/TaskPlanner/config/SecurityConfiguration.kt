@@ -25,7 +25,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .addFilterBefore(jwtFilter, BasicAuthenticationFilter::class.java)
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/v1/auth").permitAll()
-            .antMatchers(HttpMethod.GET, "/health").permitAll()
+            .antMatchers(HttpMethod.GET, "/v1/health").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
