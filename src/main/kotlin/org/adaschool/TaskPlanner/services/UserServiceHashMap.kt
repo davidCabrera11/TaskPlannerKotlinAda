@@ -2,6 +2,7 @@ package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
 import org.adaschool.TaskPlanner.model.User
+import org.adaschool.TaskPlanner.utils.RoleEnum
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicLong
@@ -20,13 +21,14 @@ class UserServiceHashMap:UserService {
     private fun createSampleUser(){
         val id: String = "1234"
         val user = User(
-
             nextOid.incrementAndGet(),
             id,
             "David",
-            BCrypt.hashpw("password1",BCrypt.gensalt()),
+            BCrypt.hashpw("passw0rd",BCrypt.gensalt()),
             "davidcab11@gmail.com",
-            "https://www.imgur.com/kotlin-image"
+            "https://www.imgur.com/kotlin-image",
+            listOf(RoleEnum.ADMIN)
+
         )
 
         users[id] = user
