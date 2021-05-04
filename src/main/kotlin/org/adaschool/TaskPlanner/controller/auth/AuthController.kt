@@ -27,19 +27,16 @@ class AuthController(
     @PostMapping
     fun authenticate(@RequestBody loginDto: LoginDto) : TokenDto  {
 
-        val expirationDate = Calendar.getInstance()
-        expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
-        val token = generateAppToken("1213213", expirationDate.time)
-        return TokenDto(token, expirationDate.time)
 
-     /*   val user = userService.findByEmail(loginDto.email) ?: throw UserNotFoundException()
+
+        val user = userService.findByEmail(loginDto.email) ?: throw UserNotFoundException()
 
         if (BCrypt.checkpw(loginDto.password, user.passwordHash)){
 
             return generateTokenDto(user)
 
         }else
-            throw InvalidCredentialsException()*/
+            throw InvalidCredentialsException()
 
 
     }
