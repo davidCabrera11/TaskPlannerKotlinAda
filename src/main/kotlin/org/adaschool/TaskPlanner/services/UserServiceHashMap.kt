@@ -14,27 +14,6 @@ class UserServiceHashMap:UserService {
 
     private val nextOid = AtomicLong()
 
-    init {
-        createSampleUser()
-    }
-
-    private fun createSampleUser(){
-        val id: String = "1234"
-        val user = User(
-            nextOid.incrementAndGet(),
-            id,
-            "David",
-            BCrypt.hashpw("passw0rd",BCrypt.gensalt()),
-            "davidcab11@gmail.com",
-            "https://www.imgur.com/kotlin-image",
-            listOf(RoleEnum.ADMIN)
-
-        )
-
-        users[id] = user
-
-    }
-
 
     override fun save(userDto: UserDto): User {
         val user = User(nextOid.incrementAndGet(),userDto)
