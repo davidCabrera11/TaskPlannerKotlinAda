@@ -1,4 +1,4 @@
-package org.adaschool.TaskPlanner.controller.dto
+package org.adaschool.TaskPlanner.data.dto
 
 import java.util.*
 

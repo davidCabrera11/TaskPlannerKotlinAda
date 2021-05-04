@@ -1,7 +1,7 @@
 package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.TaskDto
-import org.adaschool.TaskPlanner.model.Task
+import org.adaschool.TaskPlanner.data.document.Task
 
 interface TaskService {
 
@@ -20,6 +20,6 @@ interface TaskService {
     fun all():List<Task>
 
     //Delete
-    fun delete(taskId: String):Boolean
+    fun delete(taskId: String)
 
 }

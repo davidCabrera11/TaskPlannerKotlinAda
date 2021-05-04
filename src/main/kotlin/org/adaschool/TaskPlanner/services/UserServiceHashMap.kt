@@ -1,13 +1,11 @@
 package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
-import org.adaschool.TaskPlanner.model.User
-import org.adaschool.TaskPlanner.utils.RoleEnum
+import org.adaschool.TaskPlanner.data.document.User
+import org.adaschool.TaskPlanner.data.document.RoleEnum
 import org.springframework.security.crypto.bcrypt.BCrypt
-import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicLong
 
-@Service
 class UserServiceHashMap:UserService {
 
     private val users = HashMap<String,User>()
@@ -19,37 +17,32 @@ class UserServiceHashMap:UserService {
     }
 
     private fun createSampleUser(){
-        val id: String = "1234"
+        val id = nextOid.incrementAndGet().toString()
         val user = User(
-            nextOid.incrementAndGet(),
             id,
             "David",
-            BCrypt.hashpw("passw0rd",BCrypt.gensalt()),
             "davidcab11@gmail.com",
             "https://www.imgur.com/kotlin-image",
-            listOf(RoleEnum.ADMIN)
-
+            BCrypt.hashpw("passw0rd",BCrypt.gensalt()),
+            listOf(RoleEnum.USER)
         )
-
         users[id] = user
-
     }
 
 
     override fun save(userDto: UserDto): User {
-        val user = User(nextOid.incrementAndGet(),userDto)
+        val user = User( userDto)
+        user.id = nextOid.incrementAndGet().toString()
         users[userDto.id] = user
         return user
-
     }
 
     override fun update(userId: String, userDto: UserDto): User {
-        if (users.containsKey(userId)){
-            val user = users[userId]
-            users[userId] = User(user!!.oid,userDto)
+        if (users.containsKey(userId)) {
+            users[userId] = User( userDto)
+            users[userId]!!.id = userId
         }
         return users[userId]!!
-
     }
 
     override fun findUserById(userId: String): User? {
@@ -57,7 +50,6 @@ class UserServiceHashMap:UserService {
             users[userId]
         else
             null
-
     }
 
     override fun findByEmail(email: String): User? {
@@ -66,11 +58,9 @@ class UserServiceHashMap:UserService {
 
     override fun all(): List<User> {
         return users.values.toList()
-
     }
 
-    override fun delete(userId: String): Boolean {
-        return users.remove(userId) != null
+    override fun delete(userId: String) {
+        users.remove(userId) != null
     }
-
 }

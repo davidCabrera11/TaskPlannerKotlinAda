@@ -1,7 +1,7 @@
 package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.TaskDto
-import org.adaschool.TaskPlanner.model.Task
+import org.adaschool.TaskPlanner.data.document.Task
 import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicLong
 
@@ -13,7 +13,7 @@ class TaskServiceHashMap:TaskService {
     private val nextOid = AtomicLong()
 
     override fun save(taskDto: TaskDto): Task {
-        val task = Task(nextOid.incrementAndGet(),taskDto)
+        val task = Task(taskDto)
         tasks[taskDto.id] = task
         return task
 
@@ -21,8 +21,7 @@ class TaskServiceHashMap:TaskService {
 
     override fun update(taskId: String, taskDto: TaskDto): Task {
         if (tasks.containsKey(taskId)){
-            val task = tasks[taskId]
-            tasks[taskId] = Task(task!!.oid,taskDto)
+            tasks[taskId] = Task(taskDto)
         }
         return tasks[taskId]!!
 
@@ -41,8 +40,8 @@ class TaskServiceHashMap:TaskService {
 
     }
 
-    override fun delete(taskId: String): Boolean {
-        return tasks.remove(taskId) != null
+    override fun delete(taskId: String) {
+        tasks.remove(taskId) != null
     }
 
 }

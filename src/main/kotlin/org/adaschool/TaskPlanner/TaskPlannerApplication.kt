@@ -8,5 +8,4 @@ class TaskPlannerApplication
 
 fun main(args: Array<String>) {
 	runApplication<TaskPlannerApplication>(*args)
-
 }

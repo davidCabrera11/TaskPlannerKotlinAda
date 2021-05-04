@@ -2,18 +2,15 @@ package org.adaschool.TaskPlanner.controller.auth
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.adaschool.TaskPlanner.controller.dto.LoginDto
-import org.adaschool.TaskPlanner.controller.dto.TokenDto
-import org.adaschool.TaskPlanner.exceptions.InvalidCredentialsException
-import org.adaschool.TaskPlanner.exceptions.UserNotFoundException
-import org.adaschool.TaskPlanner.model.User
+import org.adaschool.TaskPlanner.data.dto.LoginDto
+import org.adaschool.TaskPlanner.data.dto.TokenDto
+import org.adaschool.TaskPlanner.data.document.User
 import org.adaschool.TaskPlanner.services.UserService
 import org.adaschool.TaskPlanner.utils.CLAIMS_ROLES_KEY
 import org.adaschool.TaskPlanner.utils.RoleEnum
 import org.adaschool.TaskPlanner.utils.TOKEN_DURATION_MINUTES
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -25,7 +22,7 @@ class AuthController(
 ) {
 
     @PostMapping
-    fun authenticate(@RequestBody loginDto: LoginDto) : TokenDto  {
+    fun authenticate(@RequestBody loginDto: LoginDto) : TokenDto {
 
         val expirationDate = Calendar.getInstance()
         expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
@@ -43,8 +40,6 @@ class AuthController(
 
 
     }
-
-
 
     private fun generateToken(user: User, expirationDate: Date): String {
         return Jwts.builder()
@@ -66,19 +61,12 @@ class AuthController(
             .compact()
     }
 
-
-
-    private fun generateTokenDto(user: User): TokenDto {
-
-        val expirationDate = Calendar.getInstance()
-        expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
-        val token = generateAppToken(user.id, expirationDate.time)
-        return TokenDto(token, expirationDate.time)
-
-    }
-
-
-
-
-
+//    private fun generateTokenDto(user: User): TokenDto {
+//
+//        val expirationDate = Calendar.getInstance()
+//        expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
+//        val token = generateAppToken(user.id, expirationDate.time)
+//        return TokenDto(token, expirationDate.time)
+//
+//    }
 }

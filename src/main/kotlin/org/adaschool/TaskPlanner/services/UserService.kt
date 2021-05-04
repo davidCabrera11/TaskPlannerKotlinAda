@@ -1,10 +1,9 @@
 package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
-import org.adaschool.TaskPlanner.model.User
+import org.adaschool.TaskPlanner.data.document.User
 
 interface UserService {
-
 
     //CRUD Operations
 
@@ -23,5 +22,5 @@ interface UserService {
     fun all():List<User>
 
     //Delete
-    fun delete(userId:String):Boolean
+    fun delete(userId: String)
 }
