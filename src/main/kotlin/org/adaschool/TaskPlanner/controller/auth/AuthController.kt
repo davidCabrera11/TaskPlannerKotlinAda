@@ -29,14 +29,14 @@ class AuthController(
         val token = generateAppToken("1213213", expirationDate.time)
         return TokenDto(token, expirationDate.time)
 
-     /*   val user = userService.findByEmail(loginDto.email) ?: throw UserNotFoundException()
+        val user = userService.findByEmail(loginDto.email) ?: throw UserNotFoundException()
 
         if (BCrypt.checkpw(loginDto.password, user.passwordHash)){
 
             return generateTokenDto(user)
 
         }else
-            throw InvalidCredentialsException()*/
+            throw InvalidCredentialsException()
 
 
     }
@@ -61,12 +61,5 @@ class AuthController(
             .compact()
     }
 
-//    private fun generateTokenDto(user: User): TokenDto {
-//
-//        val expirationDate = Calendar.getInstance()
-//        expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
-//        val token = generateAppToken(user.id, expirationDate.time)
-//        return TokenDto(token, expirationDate.time)
-//
-//    }
+
 }
