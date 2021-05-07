@@ -11,13 +11,15 @@ class Task(
     val description: String,
     val personResponsible:String,
     val dueDate: String,
-    val status: String
+    val status: String,
+    val userId: String
 ) {
     constructor(taskDto: TaskDto):this(
         null,
         taskDto.description,
         taskDto.personResponsible,
         taskDto.dueDate,
-        taskDto.status
+        taskDto.status,
+        taskDto.userId
     )
 }

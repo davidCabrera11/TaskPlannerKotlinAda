@@ -10,38 +10,33 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("v1/tasks")
 class TaskController(@Autowired val taskService: TaskService){
 
-    //CRUD Operations
-
-    //Create
     @PostMapping
     fun create(@RequestBody taskDto: TaskDto): Task {
         return taskService.save(taskDto)
-
     }
 
-    //Read
     @GetMapping
     fun getTasks():List<Task>?{
         return taskService.all()
     }
 
-    //Read for specific user
     @GetMapping("/{id}")
     fun findTaskById(@PathVariable id:String): Task?{
-        return taskService.findTaskById(id)
-//            ?:throw Exception()
-
+        return taskService.findTaskById(id)?:throw Exception()
     }
 
-    //Update
     @PutMapping("/{id}")
     fun update(@PathVariable id: String, @RequestBody taskDto: TaskDto): Task?{
         return taskService.update(id,taskDto)
-
     }
-    //Delete
+
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) {
         taskService.delete(id)
+    }
+
+    @GetMapping("/user/{id}")
+        fun findTaskByUserId(@PathVariable userId: String) {
+        taskService.findTaskByUserId(userId)
     }
 }

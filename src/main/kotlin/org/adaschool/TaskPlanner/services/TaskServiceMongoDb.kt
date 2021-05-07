@@ -28,4 +28,8 @@ class TaskServiceMongoDb(@Autowired val taskRepository: TaskRepository): TaskSer
     override fun delete(taskId: String) {
         return taskRepository.deleteById(taskId)
     }
+
+    override fun findTaskByUserId(userId: String): List<Task>? {
+        return taskRepository.findTaskByUserId(userId)
+    }
 }

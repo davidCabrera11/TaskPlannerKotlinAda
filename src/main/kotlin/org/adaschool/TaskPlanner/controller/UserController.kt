@@ -2,6 +2,7 @@ package org.adaschool.TaskPlanner.controller
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
 import org.adaschool.TaskPlanner.data.document.User
+import org.adaschool.TaskPlanner.exceptions.UserNotFoundException
 //import org.adaschool.TaskPlanner.exception.UserNotFoundException
 import org.adaschool.TaskPlanner.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,8 +24,7 @@ class UserController(@Autowired val usersService: UserService) {
 
     @GetMapping("/{id}")
     fun findUserById(@PathVariable id: String): User? {
-        return usersService.findUserById(id)
-//            ?: throw UserNotFoundException()
+        return usersService.findUserById(id) ?: throw UserNotFoundException()
     }
 
     @PutMapping("/{id}")
