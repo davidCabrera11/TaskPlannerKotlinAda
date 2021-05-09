@@ -24,11 +24,7 @@ class AuthController(
     @PostMapping
     fun authenticate(@RequestBody loginDto: LoginDto) : TokenDto {
 
-        val expirationDate = Calendar.getInstance()
-        expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
-        val token = generateAppToken("1213213", expirationDate.time)
-        return TokenDto(token, expirationDate.time)
-
+      
         val user = userService.findByEmail(loginDto.email) ?: throw UserNotFoundException()
 
         if (BCrypt.checkpw(loginDto.password, user.passwordHash)){
@@ -59,6 +55,15 @@ class AuthController(
             .setExpiration(expirationDate)
             .signWith(SignatureAlgorithm.HS256, secret)
             .compact()
+    }
+    
+       private fun generateTokenDto(user: User): TokenDto {
+
+        val expirationDate = Calendar.getInstance()
+        expirationDate.add(Calendar.MINUTE, TOKEN_DURATION_MINUTES)
+        val token = generateAppToken(user.id, expirationDate.time)
+        return TokenDto(token, expirationDate.time)
+
     }
 
 
